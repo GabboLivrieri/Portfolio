@@ -1,967 +1,795 @@
 <!DOCTYPE html>
 <html lang="it">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-        <title>
-            Gabriele Livrieri – Sviluppatore software
-        </title>
-        <meta name="description" content="Portfolio di Gabriele Livrieri, sviluppatore software junior: Angular, Java e Spring Boot.">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
-        <style>
-:root {
-    --bg:#130a22;
-    --surface:rgba(255,255,255,.06);
-    --ink:#f5effd;
-    --muted:#b9acd2;
-    --line:rgba(255,255,255,.14);
-    --violet:#9b6bff;
-    --orange:#ff7a2f;
-    --grad:linear-gradient(120deg,#9b6bff,#ff7a2f);
-    --btn-ink:#1a0d2e;
-    --blob1:rgba(155,107,255,.45);
-    --blob2:rgba(255,122,47,.32);
-    color-scheme:dark;
-    --serif:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
-    --sans:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
-    box-sizing:border-box;
-    padding-top:env(safe-area-inset-top,0px);
-    padding-bottom:env(safe-area-inset-bottom,0px);
-}
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gabriele Livrieri – Sviluppatore software</title>
+<meta name="description" content="Portfolio di Gabriele Livrieri, sviluppatore software junior: Angular, Java e Spring Boot.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<script>
+  // Dice al CSS che le animazioni sono consentite
+  if (matchMedia("(prefers-reduced-motion: no-preference)").matches && "IntersectionObserver" in window) {
+    document.documentElement.classList.add("js");
+  }
+</script>
+<style>
+  /* ===== Colori, font e tema chiaro/scuro ===== */
+  :root {
+    color-scheme: light dark;
+    --bg: light-dark(#faf6ff, #130a22);
+    --surface: light-dark(rgba(95, 55, 119, .07), rgba(255, 255, 255, .06));
+    --ink: light-dark(#22123a, #f5effd);
+    --muted: light-dark(#5d5075, #b9acd2);
+    --line: light-dark(rgba(95, 55, 119, .18), rgba(255, 255, 255, .14));
+    --violet: light-dark(#6a35d6, #9b6bff);
+    --orange: light-dark(#d9560b, #ff7a2f);
+    --btn-ink: light-dark(#fff, #1a0d2e);
+    --blob1: light-dark(rgba(155, 107, 255, .35), rgba(155, 107, 255, .45));
+    --blob2: light-dark(rgba(255, 140, 60, .28), rgba(255, 122, 47, .32));
+    --grad: linear-gradient(120deg, var(--violet), var(--orange));
+    --font: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+  }
 
-@media (prefers-color-scheme:light) {
-    :root:not([data-theme="dark"]) {
-        --bg:#faf6ff;
-        --surface:rgba(95,55,119,.07);
-        --ink:#22123a;
-        --muted:#5d5075;
-        --line:rgba(95,55,119,.18);
-        --violet:#6a35d6;
-        --orange:#d9560b;
-        --grad:linear-gradient(120deg,#6a35d6,#d9560b);
-        --btn-ink:#fff;
-        --blob1:rgba(155,107,255,.35);
-        --blob2:rgba(255,140,60,.28);
-        color-scheme:light;
+  :root[data-theme="light"] {
+    color-scheme: light;
+  }
+
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+  }
+
+  /* ===== Base ===== */
+  html {
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+    scroll-behavior: smooth;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 17px/1.6 var(--font);
+    overflow-x: hidden;
+  }
+
+  a {
+    color: var(--orange);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--orange);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  /* ===== Sfondo animato ===== */
+  .blob {
+    position: fixed;
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+  }
+
+  .b1 {
+    width: 48vw;
+    height: 48vw;
+    left: -12vw;
+    top: -10vw;
+    background: var(--blob1);
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+
+  .b2 {
+    width: 40vw;
+    height: 40vw;
+    right: -10vw;
+    top: 30vh;
+    background: var(--blob2);
+    animation: drift 22s ease-in-out infinite alternate-reverse;
+  }
+
+  @keyframes drift {
+    to {
+      transform: translate(8vw, 10vh) scale(1.15);
     }
-}
-
-:root[data-theme="light"] {
-    --bg:#faf6ff;
-    --surface:rgba(95,55,119,.07);
-    --ink:#22123a;
-    --muted:#5d5075;
-    --line:rgba(95,55,119,.18);
-    --violet:#6a35d6;
-    --orange:#d9560b;
-    --grad:linear-gradient(120deg,#6a35d6,#d9560b);
-    --btn-ink:#fff;
-    --blob1:rgba(155,107,255,.35);
-    --blob2:rgba(255,140,60,.28);
-    color-scheme:light;
-}
-
-html {
-    scroll-padding-top:env(safe-area-inset-top,0px);
-    scroll-behavior:smooth;
-}
-
-*,*::before,*::after {
-    box-sizing:border-box;
-}
-
-body {
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font:17px/1.6 var(--sans);
-    overflow-x:hidden;
-}
-
-a {
-    color:var(--orange);
-}
-
-:focus-visible {
-    outline:3px solid var(--orange);
-    outline-offset:3px;
-    border-radius:6px;
-}
-
-.blob {
-    position:fixed;
-    z-index:-1;
-    border-radius:50%;
-    filter:blur(90px);
-    pointer-events:none;
-}
-
-.b1 {
-    width:48vw;
-    height:48vw;
-    left:-12vw;
-    top:-10vw;
-    background:var(--blob1);
-    animation:drift 18s ease-in-out infinite alternate;
-}
-
-.b2 {
-    width:40vw;
-    height:40vw;
-    right:-10vw;
-    top:30vh;
-    background:var(--blob2);
-    animation:drift 22s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes drift {
-    to{transform:translate(8vw,10vh) scale(1.15)};
-}
-
-.wrap {
-    max-width:980px;
-    margin:0 auto;
-    padding:0 22px;
-}
-
-header.top {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:16px;
-    padding:20px 0;
-}
-
-.logo {
-    font:700 1.15rem var(--serif);
-    text-decoration:none;
-    color:var(--ink);
-}
-
-nav {
-    display:flex;
-    gap:18px;
-    flex-wrap:wrap;
-}
-
-nav a {
-    color:var(--muted);
-    text-decoration:none;
-    font-size:.95rem;
-    transition:color .2s;
-}
-
-nav a:hover {
-    color:var(--orange);
-}
-
-.hero {
-    padding:64px 0 48px;
-}
-
-.hi {
-    display:inline-block;
-    padding:6px 14px;
-    border:1px solid var(--line);
-    border-radius:999px;
-    background:var(--surface);
-    color:var(--muted);
-    font-size:.92rem;
-    margin-bottom:22px;
-}
-
-.hi i {
-    display:inline-block;
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:var(--orange);
-    margin-right:8px;
-    animation:pulse 1.8s infinite;
-}
-
-@keyframes pulse {
-    50%{box-shadow:0 0 0 7px transparent;
-    opacity:.5}0%{box-shadow:0 0 0 0 var(--orange)};
-}
-
-h1 {
-    font:600 clamp(2.6rem,8vw,4.9rem)/1.05 var(--serif);
-    margin:0 0 20px;
-    letter-spacing:-.035em;
-}
-
-.grad {
-    background:var(--grad);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-    background-size:200% 100%;
-    animation:shine 6s linear infinite;
-}
-
-@keyframes shine {
-    to{background-position:200% 0};
-}
-
-.role {
-    font-size:clamp(1.15rem,3vw,1.5rem);
-    margin:0 0 14px;
-    min-height:1.6em;
-}
-
-.role b {
-    color:var(--orange);
-}
-
-.caret {
-    display:inline-block;
-    width:2px;
-    height:1.1em;
-    background:var(--orange);
-    vertical-align:-.15em;
-    margin-left:3px;
-    animation:blink 1s steps(1) infinite;
-}
-
-@keyframes blink {
-    50%{opacity:0};
-}
-
-.lead {
-    color:var(--muted);
-    max-width:36em;
-    margin:0 0 28px;
-}
-
-.btns {
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-}
-
-.btn {
-    display:inline-block;
-    padding:13px 24px;
-    border-radius:999px;
-    font-weight:600;
-    text-decoration:none;
-    transition:transform .2s,box-shadow .2s;
-}
-
-.btn.main {
-    background:var(--grad);
-    color:var(--btn-ink);
-}
-
-.btn.alt {
-    border:1.5px solid var(--line);
-    color:var(--ink);
-    background:var(--surface);
-}
-
-.btn:hover {
-    transform:translateY(-3px);
-    box-shadow:0 10px 28px -8px var(--orange);
-}
-
-.flow {
-    position:relative;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:14px;
-    margin-top:48px;
-}
-
-.node {
-    padding:18px 20px;
-    border:1px solid var(--line);
-    border-radius:16px;
-    background:var(--surface);
-    backdrop-filter:blur(8px);
-}
-
-.node small {
-    display:block;
-    color:var(--orange);
-    font-weight:600;
-    font-size:.85rem;
-}
-
-.node b {
-    display:block;
-    font:700 1.35rem var(--serif);
-}
-
-.node span {
-    color:var(--muted);
-    font-size:.9rem;
-}
-
-.track {
-    position:relative;
-    height:3px;
-    margin:14px 6% 0;
-    border-radius:3px;
-    background:var(--line);
-    grid-column:1/-1;
-    overflow:hidden;
-}
-
-.track::after {
-    content:"";
-    position:absolute;
-    top:0;
-    left:-20%;
-    width:20%;
-    height:100%;
-    background:var(--grad);
-    animation:packet 2.6s ease-in-out infinite;
-}
-
-@keyframes packet {
-    to{left:100%};
-}
-
-.stats {
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:14px;
-    margin-top:34px;
-}
-
-.stat {
-    text-align:center;
-    padding:20px 10px;
-    border-radius:16px;
-    border:1px solid var(--line);
-    background:var(--surface);
-}
-
-.stat strong {
-    display:block;
-    font:700 2.3rem/1 var(--serif);
-    background:var(--grad);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-}
-
-.stat span {
-    color:var(--muted);
-    font-size:.9rem;
-}
-
-section {
-    padding:54px 0;
-}
-
-h2 {
-    font:600 clamp(1.8rem,4.5vw,2.5rem)/1.15 var(--serif);
-    margin:0 0 24px;
-    letter-spacing:-.02em;
-}
-
-h3 {
-    font:600 1.15rem var(--serif);
-    margin:0 0 4px;
-}
-
-p {
-    margin:0 0 14px;
-    max-width:42em;
-}
-
-.meta {
-    color:var(--muted);
-    font-size:.95rem;
-    margin-bottom:10px;
-}
-
-.card {
-    position:relative;
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:24px;
-    background:var(--surface);
-    backdrop-filter:blur(8px);
-    overflow:hidden;
-    transition:transform .25s,border-color .25s;
-}
-
-.card::before {
-    content:"";
-    position:absolute;
-    inset:0;
-    background:radial-gradient(260px circle at var(--mx,50%) var(--my,0%),rgba(255,122,47,.18),transparent 70%);
-    opacity:0;
-    transition:opacity .25s;
-    pointer-events:none;
-}
-
-.card:hover {
-    transform:translateY(-4px);
-    border-color:var(--orange);
-}
-
-.card:hover::before {
-    opacity:1;
-}
-
-.phases {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:16px;
-    margin-top:18px;
-}
-
-ul {
-    margin:8px 0 0;
-    padding-left:20px;
-}
-
-li {
-    margin-bottom:6px;
-}
-
-.groups {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-    gap:16px;
-}
-
-.chips {
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin:12px 0 0;
-    padding:0;
-    list-style:none;
-}
-
-.chips li {
-    margin:0;
-    padding:5px 13px;
-    border-radius:999px;
-    font-size:.92rem;
-    border:1px solid var(--line);
-    transition:background .2s,color .2s,transform .2s;
-}
-
-.chips li:hover {
-    background:var(--orange);
-    color:var(--btn-ink);
-    transform:scale(1.07);
-}
-
-.timeline {
-    display:grid;
-    gap:16px;
-    border-left:2px solid var(--line);
-    padding-left:22px;
-}
-
-.timeline .card {
-    position:relative;
-}
-
-.timeline .card::after {
-    content:"";
-    position:absolute;
-    left:-30px;
-    top:30px;
-    width:12px;
-    height:12px;
-    border-radius:50%;
-    background:var(--grad);
-}
-
-.timeline .card {
-    overflow:visible;
-}
-
-.small-list {
-    list-style:none;
-    padding:0;
-}
-
-.small-list li {
-    padding:10px 0;
-    border-bottom:1px solid var(--line);
-    margin:0;
-}
-
-.small-list li:last-child {
-    border-bottom:0;
-}
-
-.contact a.mail {
-    font:700 clamp(1.3rem,4.5vw,2.2rem) var(--serif);
-    word-break:break-word;
-}
-
-footer {
-    padding:36px 0 48px;
-    color:var(--muted);
-    font-size:.9rem;
-    border-top:1px solid var(--line);
-}
-
-.rv {
-    opacity:0;
-    transform:translateY(26px);
-    transition:opacity .7s,transform .7s;
-}
-
-.rv.on {
-    opacity:1;
-    transform:none;
-}
-
-@media (max-width:680px) {
-    .flow,.stats,.phases {
-        grid-template-columns:1fr;
+
+  }
+
+  /* ===== Layout e intestazione ===== */
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 22px;
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+  }
+
+  .logo {
+    font-weight: 600;
+    font-size: 1.15rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  nav {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: .95rem;
+    transition: color .2s;
+  }
+
+  nav a:hover {
+    color: var(--orange);
+  }
+
+  /* ===== Testi ===== */
+  h1, h2, h3 {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.9rem);
+    line-height: 1.05;
+    letter-spacing: -.035em;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    margin-bottom: 24px;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+  }
+
+  p {
+    margin: 0 0 14px;
+    max-width: 42em;
+  }
+
+  .meta {
+    color: var(--muted);
+    font-size: .95rem;
+    margin-bottom: 10px;
+  }
+
+  .gt, .stat strong {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .gt {
+    background-size: 200% 100%;
+    animation: shine 6s linear infinite;
+  }
+
+  @keyframes shine {
+    to {
+      background-position: 200% 0;
+    }
+
+  }
+
+  /* ===== Presentazione (hero) ===== */
+  .hero {
+    padding: 64px 0 48px;
+  }
+
+  .hi {
+    display: inline-block;
+    padding: 6px 14px;
+    margin-bottom: 22px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--muted);
+    font-size: .92rem;
+  }
+
+  .hi i {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: var(--orange);
+    animation: pulse 1.8s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 var(--orange);
+    }
+
+    50% {
+      box-shadow: 0 0 0 7px transparent;
+      opacity: .5;
+    }
+
+  }
+
+  .role {
+    font-size: clamp(1.15rem, 3vw, 1.5rem);
+    min-height: 1.6em;
+  }
+
+  .role b {
+    color: var(--orange);
+    font-weight: 600;
+  }
+
+  .caret {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    margin-left: 3px;
+    background: var(--orange);
+    vertical-align: -.15em;
+    animation: blink 1s steps(1) infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+
+  }
+
+  .lead {
+    color: var(--muted);
+    max-width: 36em;
+    margin-bottom: 28px;
+  }
+
+  /* ===== Pulsanti ===== */
+  .btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 13px 24px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+
+  .btn.main {
+    background: var(--grad);
+    color: var(--btn-ink);
+  }
+
+  .btn.alt {
+    border: 1.5px solid var(--line);
+    color: var(--ink);
+    background: var(--surface);
+  }
+
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px -8px var(--orange);
+  }
+
+  /* ===== Stack e numeri ===== */
+  .flow, .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .flow {
+    margin-top: 48px;
+  }
+
+  .stats {
+    margin-top: 34px;
+  }
+
+  .node, .stat {
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+  }
+
+  .node {
+    padding: 18px 20px;
+    backdrop-filter: blur(8px);
+  }
+
+  .node small {
+    display: block;
+    color: var(--orange);
+    font-weight: 600;
+    font-size: .85rem;
+  }
+
+  .node b {
+    display: block;
+    font-size: 1.35rem;
+    font-weight: 600;
+  }
+
+  .node span {
+    color: var(--muted);
+    font-size: .9rem;
+  }
+
+  .track {
+    position: relative;
+    grid-column: 1/-1;
+    height: 3px;
+    margin: 0 6%;
+    border-radius: 3px;
+    background: var(--line);
+    overflow: hidden;
+  }
+
+  .track::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -20%;
+    width: 20%;
+    height: 100%;
+    background: var(--grad);
+    animation: packet 2.6s ease-in-out infinite;
+  }
+
+  @keyframes packet {
+    to {
+      left: 100%;
+    }
+
+  }
+
+  .stat {
+    padding: 20px 10px;
+    text-align: center;
+  }
+
+  .stat strong {
+    display: block;
+    font-size: 2.3rem;
+    line-height: 1;
+    font-weight: 600;
+  }
+
+  .stat span {
+    color: var(--muted);
+    font-size: .9rem;
+  }
+
+  /* ===== Sezioni e schede ===== */
+  section {
+    padding: 54px 0;
+  }
+
+  .card {
+    position: relative;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--surface);
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+    transition: transform .25s, border-color .25s;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 122, 47, .18), transparent 70%);
+    opacity: 0;
+    transition: opacity .25s;
+    pointer-events: none;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: var(--orange);
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  .phases {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 18px;
+  }
+
+  .groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+  }
+
+  ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 6px;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .chips li {
+    margin: 0;
+    padding: 5px 13px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: .92rem;
+    transition: background .2s, color .2s, transform .2s;
+  }
+
+  .chips li:hover {
+    background: var(--orange);
+    color: var(--btn-ink);
+    transform: scale(1.07);
+  }
+
+  .timeline {
+    display: grid;
+    gap: 16px;
+    padding-left: 22px;
+    border-left: 2px solid var(--line);
+  }
+
+  .timeline .card {
+    overflow: visible;
+  }
+
+  .timeline .card::after {
+    content: "";
+    position: absolute;
+    left: -30px;
+    top: 30px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--grad);
+  }
+
+  .small-list {
+    padding: 0;
+    list-style: none;
+  }
+
+  .small-list li {
+    margin: 0;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .small-list li:last-child {
+    border: 0;
+  }
+
+  .mail {
+    font-size: clamp(1.3rem, 4.5vw, 2.2rem);
+    font-weight: 600;
+    word-break: break-word;
+  }
+
+  footer {
+    padding: 36px 0 48px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: .9rem;
+  }
+
+  /* ===== Comparsa delle sezioni allo scroll ===== */
+  .js .rv {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity .7s, transform .7s;
+  }
+
+  .js .rv.on {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width:680px) {
+    .flow, .stats, .phases {
+      grid-template-columns: 1fr;
     }
 
     .track {
-        display:none;
+      display: none;
     }
 
     .hero {
-        padding-top:36px;
+      padding-top: 36px;
     }
-}
 
-@media (prefers-reduced-motion:reduce) {
-    *,*::before,*::after {
-        animation:none!important;
-        transition:none!important;
+  }
+
+  @media (prefers-reduced-motion:reduce) {
+    *, *::before, *::after {
+      animation: none!important;
+      transition: none!important;
     }
 
     html {
-        scroll-behavior:auto;
+      scroll-behavior: auto;
     }
 
-    .rv {
-        opacity:1;
-        transform:none;
-    }
+  }
+</style>
+</head>
+
+<body>
+<!-- Bagliori animati sullo sfondo -->
+<div class="blob b1" aria-hidden="true"></div>
+<div class="blob b2" aria-hidden="true"></div>
+<div class="wrap">
+  <!-- Intestazione -->
+  <header class="top">
+    <a class="logo" href="#top">Gabriele Livrieri</a>
+    <nav aria-label="Sezioni">
+      <a href="#esperienza">Esperienza</a>
+      <a href="#competenze">Competenze</a>
+      <a href="#progetti">Progetti</a>
+      <a href="#formazione">Formazione</a>
+      <a href="#contatti">Contatti</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- Presentazione -->
+    <div class="hero">
+      <div class="hi"><i></i>Disponibile per un primo ruolo da sviluppatore</div>
+      <h1>Ciao, sono <span class="gt">Gabriele.</span></h1>
+      <p class="role">Sviluppo <b id="word">applicazioni web</b><span class="caret" aria-hidden="true"></span></p>
+      <p class="lead">Sviluppatore software junior di Lucera, diplomato ITS. Ho lavorato su frontend Angular e backend Java con Spring Boot in un’azienda vera, dall’interfaccia fino al server.</p>
+      <div class="btns">
+        <a class="btn main" href="mailto:gabriele.livrieri005@icloud.com">Scrivimi una mail</a>
+        <a class="btn alt" href="https://github.com/GabboLivrieri" rel="noopener">Vedi il mio GitHub</a>
+      </div>
+      <div class="flow" role="list" aria-label="Il mio stack">
+        <div class="node" role="listitem">
+          <small>Frontend</small>
+          <b>Angular</b>
+          <span>TypeScript, HTML5, CSS3</span>
+        </div>
+        <div class="node" role="listitem">
+          <small>Backend</small>
+          <b>Spring Boot</b>
+          <span>Java, REST API</span>
+        </div>
+        <div class="node" role="listitem">
+          <small>Dati</small>
+          <b>MySQL</b>
+          <span>SQL e NoSQL</span>
+        </div>
+        <div class="track" aria-hidden="true"></div>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <strong data-n="720">720</strong>
+          <span>ore di stage in azienda</span>
+        </div>
+        <div class="stat">
+          <strong data-n="110">110</strong>
+          <span>su 110 al diploma ITS</span>
+        </div>
+        <div class="stat">
+          <strong data-n="11">11</strong>
+          <span>tecnologie nel mio stack</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Esperienza -->
+    <section id="esperienza" class="rv">
+      <h2>Esperienza</h2>
+      <article class="card">
+        <h3>Junior Developer, Betacom S.r.l.</h3>
+        <p class="meta">Bari · stage di 720 ore · marzo – luglio 2026</p>
+        <p>Ho seguito lo sviluppo di un’applicazione web in due fasi: prima l’interfaccia, poi la parte server, lavorando con il team nell’analisi e nella risoluzione dei problemi tecnici.</p>
+        <div class="phases">
+          <div class="card">
+            <h3>Frontend</h3>
+            <ul>
+              <li>Applicazioni web con Angular</li>
+              <li>Interfacce curate per usabilità e user experience</li>
+              <li>Confronto continuo con il team</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Backend</h3>
+            <ul>
+              <li>Sviluppo con Java e Spring Boot</li>
+              <li>Funzionalità lato server e integrazione tra i componenti</li>
+              <li>Organizzazione e gestione ordinata del codice</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+      <p class="meta" style="margin-top:18px">Prima ho fatto stage tecnici: installazione e configurazione di antenne e reti Wi-Fi (VideoSound, 2025) e revisioni auto (Del Gaudio Revisioni, 2023 e 2024). Nell’estate 2025 ho lavorato come cameriere alla Pizzeria Casper.</p>
+    </section>
+
+    <!-- Competenze -->
+    <section id="competenze" class="rv">
+      <h2>Competenze</h2>
+      <div class="groups">
+        <div class="card">
+          <h3>Linguaggi</h3>
+          <ul class="chips">
+            <li>Java</li>
+            <li>TypeScript</li>
+            <li>JavaScript</li>
+            <li>Python</li>
+            <li>SQL</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Framework e web</h3>
+          <ul class="chips">
+            <li>Angular</li>
+            <li>Spring Boot</li>
+            <li>REST API</li>
+            <li>HTML5 / CSS3</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Dati e strumenti</h3>
+          <ul class="chips">
+            <li>MySQL</li>
+            <li>NoSQL</li>
+            <li>Git</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Come lavoro</h3>
+          <ul class="chips">
+            <li>Problem solving</li>
+            <li>Lavoro in team</li>
+            <li>Comunicazione</li>
+            <li>Voglia di imparare</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progetti -->
+    <section id="progetti" class="rv">
+      <h2>Progetti</h2>
+      <div class="card">
+        <h3>Il codice è su GitHub</h3>
+        <p>Trovi i miei repository, gli esercizi e i progetti del percorso ITS sul mio profilo.</p>
+        <a class="btn main" href="https://github.com/GabboLivrieri" rel="noopener">github.com/GabboLivrieri</a>
+      </div>
+    </section>
+
+    <!-- Formazione -->
+    <section id="formazione" class="rv">
+      <h2>Formazione</h2>
+      <div class="timeline">
+        <div class="card">
+          <p class="meta">2024 – 2026 · Foggia</p>
+          <h3>Diploma ITS in sviluppo software, 110/110</h3>
+          <p class="meta" style="margin:0">Apulia Digital Maker · livello 5 EQF</p>
+        </div>
+        <div class="card">
+          <p class="meta">2019 – 2024 · Lucera</p>
+          <h3>Diploma in manutenzione e assistenza tecnica (meccatronica), 96/100</h3>
+          <p class="meta" style="margin:0">Convitto Nazionale “Ruggiero Bonghi” · livello 4 EQF</p>
+        </div>
+      </div>
+      <h3 style="margin-top:32px">Certificazioni e lingue</h3>
+      <ul class="small-list">
+        <li>ICDL IT Security, livello Specialised (AICA, 2024)</li>
+        <li>ICDL Essentials (AICA, 2024)</li>
+        <li>Inglese B2, Cambridge English (164/170, 2023). Lettura C2, ascolto e scrittura C1.</li>
+      </ul>
+    </section>
+
+    <!-- Fuori dal codice -->
+    <section class="rv">
+      <h2>Fuori dal codice</h2>
+      <p>Mi piace l’informatica anche dal lato hardware. Il resto del tempo lo passo tra musica, stampa 3D, lettura e modellismo: dipingo e creo miniature.</p>
+    </section>
+
+    <!-- Contatti -->
+    <section id="contatti" class="rv">
+      <h2>Parliamone</h2>
+      <p>Cerco un’occasione per crescere come sviluppatore. Scrivimi, rispondo volentieri.</p>
+      <p><a class="mail" href="mailto:gabriele.livrieri005@icloud.com">gabriele.livrieri005@icloud.com</a></p>
+      <p>Lucera (FG), Italia · <a href="https://github.com/GabboLivrieri" rel="noopener">GitHub</a></p>
+    </section>
+  </main>
+  <!-- Piè di pagina -->
+  <footer>© 2026 Gabriele Livrieri</footer>
+</div>
+<!-- Comportamento della pagina -->
+<script>
+const $$ = s => document.querySelectorAll(s);
+
+// Il riquadro "card" si illumina seguendo il cursore
+$$(".card").forEach(c => c.onpointermove = e => {
+  const r = c.getBoundingClientRect();
+  c.style.setProperty("--mx", e.clientX - r.left + "px");
+  c.style.setProperty("--my", e.clientY - r.top + "px");
+});
+
+// Animazioni: solo se il dispositivo non chiede di ridurle (classe "js" nell'head)
+if (document.documentElement.classList.contains("js")) {
+  // Scritta che si digita da sola
+  const words = ["applicazioni web", "interfacce con Angular", "servizi con Spring Boot", "API REST"];
+  const el = document.getElementById("word");
+  let w = 0, c = words[0].length, erasing = true;
+  (function tick() {
+    const t = words[w];
+    c += erasing ? -1 : 1;
+    el.textContent = t.slice(0, c);
+    let delay = erasing ? 35 : 70;
+    if (!erasing && c === t.length) { erasing = true; delay = 1600; }
+    else if (erasing && c === 0) { erasing = false; w = (w + 1) % words.length; }
+    setTimeout(tick, delay);
+  })();
+
+  // Numeri che contano da zero
+  const count = el => {
+    const n = +el.dataset.n; let t0;
+    requestAnimationFrame(function f(t) {
+      t0 ??= t;
+      const p = Math.min((t - t0) / 1400, 1);
+      el.textContent = Math.round(n * (1 - (1 - p) ** 3));
+      if (p < 1) requestAnimationFrame(f);
+    });
+  };
+
+  // Sezioni che compaiono e numeri che partono quando entrano nello schermo
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    io.unobserve(e.target);
+    e.target.dataset.n ? count(e.target) : e.target.classList.add("on");
+  }), { threshold: .12 });
+  $$(".rv").forEach(e => io.observe(e));
+  $$("[data-n]").forEach(e => { e.textContent = 0; io.observe(e); });
 }
-        </style>
-    </head>
-    <body>
-        <div class="blob b1" aria-hidden="true">
-        </div>
-        <div class="blob b2" aria-hidden="true">
-        </div>
-        <div class="wrap">
-            <header class="top">
-                <a class="logo" href="#top">
-                    Gabriele Livrieri
-                </a>
-                <nav aria-label="Sezioni">
-                    <a href="#esperienza">
-                        Esperienza
-                    </a>
-                    <a href="#competenze">
-                        Competenze
-                    </a>
-                    <a href="#progetti">
-                        Progetti
-                    </a>
-                    <a href="#formazione">
-                        Formazione
-                    </a>
-                    <a href="#contatti">
-                        Contatti
-                    </a>
-                </nav>
-            </header>
-            <main id="top">
-                <div class="hero">
-                    <div class="hi">
-                        <i>
-                        </i>
-                        Disponibile per un primo ruolo da sviluppatore
-                    </div>
-                    <h1>
-                        Ciao, sono
-                        <span class="grad">
-                            Gabriele.
-                        </span>
-                    </h1>
-                    <p class="role">
-                        Sviluppo
-                        <b id="word">
-                            applicazioni web
-                        </b>
-                        <span class="caret" aria-hidden="true">
-                        </span>
-                    </p>
-                    <p class="lead">
-                        Sviluppatore software junior di Lucera, diplomato ITS. Ho lavorato su frontend Angular e backend Java con Spring Boot in un’azienda vera, dall’interfaccia fino al server.
-                    </p>
-                    <div class="btns">
-                        <a class="btn main" href="mailto:gabriele.livrieri005@icloud.com">
-                            Scrivimi una mail
-                        </a>
-                        <a class="btn alt" href="https://github.com/GabboLivrieri" rel="noopener">
-                            Vedi il mio GitHub
-                        </a>
-                    </div>
-                    <div class="flow" role="list" aria-label="Il mio stack">
-                        <div class="node" role="listitem">
-                            <small>
-                                Frontend
-                            </small>
-                            <b>
-                                Angular
-                            </b>
-                            <span>
-                                TypeScript, HTML5, CSS3
-                            </span>
-                        </div>
-                        <div class="node" role="listitem">
-                            <small>
-                                Backend
-                            </small>
-                            <b>
-                                Spring Boot
-                            </b>
-                            <span>
-                                Java, REST API
-                            </span>
-                        </div>
-                        <div class="node" role="listitem">
-                            <small>
-                                Dati
-                            </small>
-                            <b>
-                                MySQL
-                            </b>
-                            <span>
-                                SQL e NoSQL
-                            </span>
-                        </div>
-                        <div class="track" aria-hidden="true">
-                        </div>
-                    </div>
-                    <div class="stats">
-                        <div class="stat">
-                            <strong data-n="720">
-                                720
-                            </strong>
-                            <span>
-                                ore di stage in azienda
-                            </span>
-                        </div>
-                        <div class="stat">
-                            <strong data-n="110">
-                                110
-                            </strong>
-                            <span>
-                                su 110 al diploma ITS
-                            </span>
-                        </div>
-                        <div class="stat">
-                            <strong data-n="11">
-                                11
-                            </strong>
-                            <span>
-                                tecnologie nel mio stack
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <section id="esperienza" class="rv">
-                    <h2>
-                        Esperienza
-                    </h2>
-                    <article class="card">
-                        <h3>
-                            Junior Developer, Betacom S.r.l.
-                        </h3>
-                        <p class="meta">
-                            Bari · stage di 720 ore · marzo – luglio 2026
-                        </p>
-                        <p>
-                            Ho seguito lo sviluppo di un’applicazione web in due fasi: prima l’interfaccia, poi la parte server, lavorando con il team nell’analisi e nella risoluzione dei problemi tecnici.
-                        </p>
-                        <div class="phases">
-                            <div class="card">
-                                <h3>
-                                    Frontend
-                                </h3>
-                                <ul>
-                                    <li>
-                                        Applicazioni web con Angular
-                                    </li>
-                                    <li>
-                                        Interfacce curate per usabilità e user experience
-                                    </li>
-                                    <li>
-                                        Confronto continuo con il team
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card">
-                                <h3>
-                                    Backend
-                                </h3>
-                                <ul>
-                                    <li>
-                                        Sviluppo con Java e Spring Boot
-                                    </li>
-                                    <li>
-                                        Funzionalità lato server e integrazione tra i componenti
-                                    </li>
-                                    <li>
-                                        Organizzazione e gestione ordinata del codice
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </article>
-                    <p class="meta" style="margin-top:18px">
-                        Prima ho fatto stage tecnici: installazione e configurazione di antenne e reti Wi-Fi (VideoSound, 2025) e revisioni auto (Del Gaudio Revisioni, 2023 e 2024). Nell’estate 2025 ho lavorato come cameriere alla Pizzeria Casper.
-                    </p>
-                </section>
-                <section id="competenze" class="rv">
-                    <h2>
-                        Competenze
-                    </h2>
-                    <div class="groups">
-                        <div class="card">
-                            <h3>
-                                Linguaggi
-                            </h3>
-                            <ul class="chips">
-                                <li>
-                                    Java
-                                </li>
-                                <li>
-                                    TypeScript
-                                </li>
-                                <li>
-                                    JavaScript
-                                </li>
-                                <li>
-                                    Python
-                                </li>
-                                <li>
-                                    SQL
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>
-                                Framework e web
-                            </h3>
-                            <ul class="chips">
-                                <li>
-                                    Angular
-                                </li>
-                                <li>
-                                    Spring Boot
-                                </li>
-                                <li>
-                                    REST API
-                                </li>
-                                <li>
-                                    HTML5 / CSS3
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>
-                                Dati e strumenti
-                            </h3>
-                            <ul class="chips">
-                                <li>
-                                    MySQL
-                                </li>
-                                <li>
-                                    NoSQL
-                                </li>
-                                <li>
-                                    Git
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>
-                                Come lavoro
-                            </h3>
-                            <ul class="chips">
-                                <li>
-                                    Problem solving
-                                </li>
-                                <li>
-                                    Lavoro in team
-                                </li>
-                                <li>
-                                    Comunicazione
-                                </li>
-                                <li>
-                                    Voglia di imparare
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-                <section id="progetti" class="rv">
-                    <h2>
-                        Progetti
-                    </h2>
-                    <div class="card">
-                        <h3>
-                            Il codice è su GitHub
-                        </h3>
-                        <p>
-                            Trovi i miei repository, gli esercizi e i progetti del percorso ITS sul mio profilo.
-                        </p>
-                        <a class="btn main" href="https://github.com/GabboLivrieri" rel="noopener">
-                            github.com/GabboLivrieri
-                        </a>
-                    </div>
-                </section>
-                <section id="formazione" class="rv">
-                    <h2>
-                        Formazione
-                    </h2>
-                    <div class="timeline">
-                        <div class="card">
-                            <p class="meta">
-                                2024 – 2026 · Foggia
-                            </p>
-                            <h3>
-                                Diploma ITS in sviluppo software, 110/110
-                            </h3>
-                            <p class="meta" style="margin:0">
-                                Apulia Digital Maker · livello 5 EQF
-                            </p>
-                        </div>
-                        <div class="card">
-                            <p class="meta">
-                                2019 – 2024 · Lucera
-                            </p>
-                            <h3>
-                                Diploma in manutenzione e assistenza tecnica (meccatronica), 96/100
-                            </h3>
-                            <p class="meta" style="margin:0">
-                                Convitto Nazionale “Ruggiero Bonghi” · livello 4 EQF
-                            </p>
-                        </div>
-                    </div>
-                    <h3 style="margin-top:32px">
-                        Certificazioni e lingue
-                    </h3>
-                    <ul class="small-list">
-                        <li>
-                            ICDL IT Security, livello Specialised (AICA, 2024)
-                        </li>
-                        <li>
-                            ICDL Essentials (AICA, 2024)
-                        </li>
-                        <li>
-                            Inglese B2, Cambridge English (164/170, 2023). Lettura C2, ascolto e scrittura C1.
-                        </li>
-                    </ul>
-                </section>
-                <section class="rv">
-                    <h2>
-                        Fuori dal codice
-                    </h2>
-                    <p>
-                        Mi piace l’informatica anche dal lato hardware. Il resto del tempo lo passo tra musica, stampa 3D, lettura e modellismo: dipingo e creo miniature.
-                    </p>
-                </section>
-                <section id="contatti" class="contact rv">
-                    <h2>
-                        Parliamone
-                    </h2>
-                    <p>
-                        Cerco un’occasione per crescere come sviluppatore. Scrivimi, rispondo volentieri.
-                    </p>
-                    <p>
-                        <a class="mail" href="mailto:gabriele.livrieri005@icloud.com">
-                            gabriele.livrieri.005@gmail.com
-                        </a>
-                    </p>
-                    <p>
-                        Lucera (FG), Italia ·
-                        <a href="https://github.com/GabboLivrieri" rel="noopener">
-                            GitHub
-                        </a>
-                    </p>
-                </section>
-            </main>
-            <footer>
-                © 2026 Gabriele Livrieri
-            </footer>
-        </div>
-        <script>
-(function(){
-
-      var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      var words=["applicazioni web","interfacce con Angular","servizi con Spring Boot","API REST"];
-
-      var el=document.getElementById("word");
-
-      if(!reduce){
-
-        var w=0,c=words[0].length,del=true;
-
-        (function tick(){
-
-          var t=words[w];
-
-          c+=del?-1:1;el.textContent=t.slice(0,c);
-
-          var d=del?35:70;
-
-          if(!del&&c===t.length){del=true;d=1600}
-
-          else if(del&&c===0){del=false;w=(w+1)%words.length}
-
-          setTimeout(tick,d);
-
-        })();
-
-      }
-
-      var rv=document.querySelectorAll(".rv");
-
-      if(reduce||!("IntersectionObserver" in window)){rv.forEach(function(e){e.classList.add("on")})}
-
-      else{
-
-        var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{threshold:.12});
-
-        rv.forEach(function(e){io.observe(e)});
-
-        document.querySelectorAll(".stat strong").forEach(function(s){
-
-          var n=+s.dataset.n,t0=null;s.textContent="0";
-
-          var so=new IntersectionObserver(function(es){if(es[0].isIntersecting){so.disconnect();
-
-            requestAnimationFrame(function f(t){if(!t0)t0=t;var p=Math.min((t-t0)/1400,1);s.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})}});
-
-          so.observe(s);
-
-        });
-
-      }
-
-      document.querySelectorAll(".card").forEach(function(c){
-
-        c.addEventListener("pointermove",function(e){var r=c.getBoundingClientRect();c.style.setProperty("--mx",(e.clientX-r.left)+"px");c.style.setProperty("--my",(e.clientY-r.top)+"px")});
-
-      });
-
-    })();
 </script>
-            </body>
-        </html>
+</body>
+</html>
